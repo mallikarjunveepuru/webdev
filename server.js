@@ -27,18 +27,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 
+app.use(express.compress());
+app.use(express.bodyParser());
+app.use(express.cookieParser('secret'));
+app.use(express.cookieSession({
+  key: "mysite.sid.uid.whatever",
+  secret: process.env["SESSION_SECRET"],
+  cookie: {
+    maxAge: 2678400000 // 31 days
+  },
+}));
 
+/*
 app.use(session({
     resave: true,
     saveUninitialized: true,
     secret: process.env.PASSPORT_SECRET
-}));
+})); */
 
 app.use(passport.initialize());
 
 app.use(passport.session());
 
-var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
 // FOR project and other strategies to workout
