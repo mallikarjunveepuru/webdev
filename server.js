@@ -7,7 +7,7 @@ var uuid = require('node-uuid');
 var session = require('express-session');
 var passport      = require('passport');
 
-var connectionString = 'mongodb://0.0.0.0:27017/FormApp';
+var connectionString = 'mongodb://127.0.0.1:27017/FormApp';
 
 if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 
